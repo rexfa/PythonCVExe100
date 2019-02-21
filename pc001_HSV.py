@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 
 # 先定义函数
+
 def GetHSVEven(imgOnHSV, startH , endH,startW,endW):
     ht = 0
     st = 0
@@ -14,12 +15,12 @@ def GetHSVEven(imgOnHSV, startH , endH,startW,endW):
             vt = vt + imgOnHSV[h][w][2]
     return ht/225,st/225,vt/225
 
-def fillingImg(img,h,s,v, startH , endH,startW,endW):
-        for he in range(startH,endH):
+def fillingImg(img,ht,st,vt, startH , endH,startW,endW):
+        for h in range(startH,endH):
             for w in range(startW,endW):
-                img[he][w][0] = h
-                img[he][w][1] = s
-                img[he][w][2] = v
+                img[h][w][0] = ht
+                img[h][w][1] = st
+                img[h][w][2] = vt
                 #print(h)
         return img
 
@@ -54,13 +55,14 @@ for h in  range(0,50):
 sheet =  sheet.astype(np.uint8)
 DrawOut(imgOutPut,sheet) # 这个有点小问题
 imgOutPut = imgOutPut.astype(np.uint8)
-#outImg = cv2.cvtColor(sheet,cv2.COLOR_HSV2BGR)
-#outImg = cv2.cvtColor(imgOutPut,cv2.COLOR_HSV2BGR)
+outImg = cv2.cvtColor(imgOutPut,cv2.COLOR_HSV2BGR)
 
 #cv2.imwrite("out.jpg", sheet)
 #cv2.imshow("result", sheet)
-cv2.imwrite("out.jpg", imgOutPut)
-cv2.imshow("result", imgOutPut)
+outImg = outImg.astype(np.uint8)
+
+cv2.imwrite("out.jpg", outImg)
+cv2.imshow("result", outImg)
 #print(len(imgHSV))
 #print(imgHSV.shape)
 #print(sheet.shape)
