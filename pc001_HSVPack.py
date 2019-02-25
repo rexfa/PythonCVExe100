@@ -4,8 +4,8 @@ import numpy as np
 #把原来的HSV 做的更合理并且包装
 class HSVCompressionClass:
     __FileName = ''
-    __Img = {}
-    __tempBRGEven = {}
+    __Img = []
+    __tempBRGEven = []
     __Height=0
     __Width=0
     def __init__(self, fileName):
@@ -13,28 +13,39 @@ class HSVCompressionClass:
         self.__Img = cv2.imread(fileName)
         return
 
-    def __GetBGREven(self,heightSet,widthSet):
+    def GetBGREven(self,heightSetting,widthSetting):
         self.__Height = self.__Img.shape[0]
         self.__Width = self.__Img.shape[1]
-        pointNum = heightSet*widthSet
-        hs = self.__Height/heightSet
-        ws = self.__Width/widthSet
-        self.__tempBRGEven = [hs,ws,3]
+        hs = int(self.__Height//heightSetting)
+        ws = int(self.__Width//widthSetting)
+        self.__tempBRGEven =np.zeros((hs,ws,3))
         for hh in range(0,hs):
             for ww in range(0,ws):
-                self.__tempBRGEven[hh][ww][0] = 
-                self.__tempBRGEven[hh][ww][1]
-                self.__tempBRGEven[hh][ww][2]
-        return
+                hstart,hend = hh*heightSetting,(hh+1)*heightSetting
+                wstart ,wend =  ww*widthSetting,(ww+1)*widthSetting
+                #print( self.CalculationBGREven(hstart,hend,wstart,wend))
+                #print(self.__tempBRGEven[int(hh)][int(ww)][0])
+                self.__tempBRGEven[hh][ww][0],self.__tempBRGEven[hh][ww][1], self.__tempBRGEven[hh][ww][2] = self.CalculationBGREven(hstart,hend,wstart,wend)
+        return self.__tempBRGEven
     
-    def __CalculationBGREven(,heightSet,widthSet):
-        ht = 0
-        st = 0
-        vt = 0
-        #pointNum = (endH-startH)*(endW-startW) 其实就是 15*15=255
-        for h in range(startH,endH):
-            for w in range(startW,endW):
-                ht = ht + imgOnHSV[h][w][0]
-                st = st + imgOnHSV[h][w][1]
-                vt = vt + imgOnHSV[h][w][2]
-        return ht/225,st/225,vt/225
+    def CalculationBGREven(self,heightSet,heightOffset,widthSet,widthOffset):
+        bt = 0
+        gt = 0
+        rt = 0
+        pointNum = (heightOffset-heightSet)*(widthOffset-widthSet)
+        for h in range(heightSet,heightOffset):
+            for w in range(widthSet,widthOffset):
+                bt = bt + self.__Img[h][w][0]
+                gt = gt + self.__Img[h][w][1]
+                rt = rt + self.__Img[h][w][2]
+        return float(bt/pointNum),float(gt/pointNum),float(rt/pointNum)
+
+hclass = HSVCompressionClass("zyl.jpg")
+
+outImg = hclass.GetBGREven(15,15)
+outImg = outImg.astype(np.uint8)
+cv2.imwrite("out.jpg", outImg)
+cv2.imshow("result", outImg)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
