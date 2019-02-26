@@ -39,6 +39,10 @@ class HSVCompressionClass:
                 gt = gt + self.__Img[h][w][1]
                 rt = rt + self.__Img[h][w][2]
         return float(bt/pointNum),float(gt/pointNum),float(rt/pointNum)
+    
+    def __GetHSV(self):
+        self.__tempBRGEven = cv2.cvtColor(self.__tempBRGEven,cv2.COLOR_HSV2BGR)
+
 
 hclass = HSVCompressionClass("zyl.jpg")
 
