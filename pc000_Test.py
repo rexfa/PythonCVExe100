@@ -7,18 +7,18 @@ import numpy as np
 # b = img[:, :, 0].copy()
 # g = img[:, :, 1].copy()
 # r = img[:, :, 2].copy()
-
+##########################################################
 #三维数组实验
-np.random.seed(123)
-X = np.random.randint(0, 5, [3, 2, 3])
-print(X)
-x0 =  np.mean(X,axis=0)
-x00 = np.mean(x0,axis=0)
+# np.random.seed(123)
+# X = np.random.randint(0, 5, [3, 2, 3])
+# print(X)
+# x0 =  np.mean(X,axis=0)
+# x00 = np.mean(x0,axis=0)
 
-print("0" , x0)
-print("00",x00)
-print("1" , np.mean(X,axis=1))
-print("2" , np.mean(X,axis=2))
+# print("0" , x0)
+# print("00",x00)
+# print("1" , np.mean(X,axis=1))
+# print("2" , np.mean(X,axis=2))
 
 
 # 非常有趣的结果
@@ -39,3 +39,12 @@ print("2" , np.mean(X,axis=2))
 # 2 [[2.66666667 2.        ]
 #  [1.66666667 0.66666667]
 #  [0.33333333 2.33333333]]
+##########################################################
+#数组赋值测试
+np.random.seed(123)
+X = np.random.randint(0, 5, [3, 2, 3])
+print(X)
+#X[::1]=10 #全变10
+X[:,:,0]=10 #0列变10
+X[:,:,1]=9 #1列变9
+print(X)
