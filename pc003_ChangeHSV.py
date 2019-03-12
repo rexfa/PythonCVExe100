@@ -13,10 +13,19 @@ class ChangeHSV:
     def __GetHSV(self):
         self.__HSVOrg = cv2.cvtColor(self.__Img,cv2.COLOR_HSV2BGR)
         return
-
+    #改变色调 0°～360°  0-360
     def ChangeH(self,newH):
         self.__HSVOrg[:,:,0]=newH
         return self.__HSVOrg
+    #改变饱和度 0%～100% 值越大，颜色越饱和  0-100
+    def ChangeS(self,newS):
+        self.__HSVOrg[:,:,1]=newS
+        return self.__HSVOrg
+    #改变明度 0%（黑）到100%（白） 0-100
+    def ChangeV(self,newV):
+        self.__HSVOrg[:,:,2]=newV
+        return self.__HSVOrg    
+
 
 
 chclass = ChangeHSV("zyl.jpg")
