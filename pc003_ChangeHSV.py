@@ -15,14 +15,20 @@ class ChangeHSV:
         return
     #改变色调 0°～360°  0-360
     def ChangeH(self,newH):
+        if newH<0 or newH>360:
+            raise Exception("newH value is out of range ")
         self.__HSVOrg[:,:,0]=newH
         return self.__HSVOrg
     #改变饱和度 0%～100% 值越大，颜色越饱和  0-100
     def ChangeS(self,newS):
+        if newS<0 or newS>100:
+            raise Exception("newS value is out of range ")
         self.__HSVOrg[:,:,1]=newS
         return self.__HSVOrg
     #改变明度 0%（黑）到100%（白） 0-100
     def ChangeV(self,newV):
+        if newV<0 or newV>100:
+            raise Exception("newV value is out of range ")        
         self.__HSVOrg[:,:,2]=newV
         return self.__HSVOrg    
 
